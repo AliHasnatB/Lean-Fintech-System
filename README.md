@@ -248,10 +248,6 @@ http://localhost:8080/swagger-ui/index.html
 | 🏦 Accounts | `/api/accounts` | Create account, balance, verification, account and login details |
 | 💸 Transactions | `/api/transactions` | Send money, deposit, transaction history |
 
-> 📮 A Postman collection can be imported to test every endpoint quickly.
-
----
-
 ## 🧪 Testing
 
 Unit tests are written with **JUnit 5** and **Mockito**, covering:
