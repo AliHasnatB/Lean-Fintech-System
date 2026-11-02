@@ -1,86 +1,150 @@
-# 💳 LeanBackend — Secure Fintech & Digital Wallet System
+<div align="center">
 
-<p align="center">
-  A secure, organization-oriented digital payment and wallet management platform built with Java and Spring Boot.
-</p>
+  <img src="https://raw.githubusercontent.com/AliHasnatB/AliHasnatB/main/LeanIconSimple.png" width="110" alt="Lean Fintech logo" />
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Java-17%2B-orange?style=for-the-badge&logo=openjdk" />
-  <img src="https://img.shields.io/badge/Spring_Boot-Backend-6DB33F?style=for-the-badge&logo=springboot" />
-  <img src="https://img.shields.io/badge/Spring_Security-Authentication-6DB33F?style=for-the-badge&logo=springsecurity" />
-  <img src="https://img.shields.io/badge/Maven-Build-C71A36?style=for-the-badge&logo=apachemaven" />
-</p>
+  # LeanBackend
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Architecture-Layered-blue?style=flat-square" />
-  <img src="https://img.shields.io/badge/API-REST-informational?style=flat-square" />
-  <img src="https://img.shields.io/badge/Testing-JUnit%20%7C%20Mockito-brightgreen?style=flat-square" />
-</p>
+  ### Secure Fintech & Digital Wallet System
+
+  A secure, organization-oriented digital payment and wallet platform built with **Java** and **Spring Boot**.
+
+  <br/>
+
+  <img src="https://img.shields.io/badge/Java-17%2B-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java" />
+  <img src="https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white" alt="Spring Boot" />
+  <img src="https://img.shields.io/badge/Spring_Security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white" alt="Spring Security" />
+  <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL" />
+
+  <img src="https://img.shields.io/badge/JWT-000000?style=flat-square&logo=jsonwebtokens&logoColor=white" alt="JWT" />
+  <img src="https://img.shields.io/badge/Swagger-85EA2D?style=flat-square&logo=swagger&logoColor=black" alt="Swagger" />
+  <img src="https://img.shields.io/badge/Postman-FF6C37?style=flat-square&logo=postman&logoColor=white" alt="Postman" />
+  <img src="https://img.shields.io/badge/Maven-C71A36?style=flat-square&logo=apachemaven&logoColor=white" alt="Maven" />
+  <img src="https://img.shields.io/badge/Tests-JUnit_5_%7C_Mockito-25A162?style=flat-square" alt="Testing" />
+  <img src="https://img.shields.io/badge/Architecture-Layered-0e75b6?style=flat-square" alt="Architecture" />
+
+  <br/><br/>
+
+  [Overview](#-overview) · [Features](#-core-features) · [Architecture](#-architecture) · [API](#-api-reference) · [Setup](#-getting-started) · [Roadmap](#-roadmap)
+
+</div>
 
 ---
 
 ## 📌 Overview
 
-**LeanBackend** is a backend-focused fintech application designed to provide a secure digital payment environment for authorized users within an organization.
+**LeanBackend** is a backend-focused fintech application that provides a secure digital payment environment for authorized users within an organization.
 
-The application enables users to register, authenticate, manage digital wallet accounts, transfer funds, and monitor financial transactions through RESTful APIs.
+Users can register, authenticate, manage wallet accounts, transfer funds, and monitor their transactions through RESTful APIs. The project emphasizes **secure authentication and authorization**, **reliable transaction handling**, and a **clean, maintainable layered architecture**.
 
-The system focuses on secure authentication, authorization, transaction management, and maintainable backend architecture using the Spring Boot ecosystem.
+| | |
+|---|---|
+| 🔐 **Secure by design** | JWT, OTP verification, PIN-protected transfers, RBAC |
+| 💸 **Reliable transfers** | Server-side validation of amounts and balances |
+| 🧱 **Maintainable** | Layered architecture with clear separation of concerns |
+| 📘 **Documented & tested** | Swagger docs, Postman collections, JUnit &amp; Mockito tests |
+
+---
 
 ## ✨ Core Features
 
+<table>
+  <tr>
+    <td width="50%" valign="top">
+
 ### 🔐 Authentication & Security
-- User registration and login.
-- JWT-based authentication.
-- OTP-based account verification.
-- Password encryption using Spring Security.
-- Role-based access control (RBAC).
-- Protected REST API endpoints.
+- User registration and login
+- JWT-based stateless authentication
+- OTP-based account verification
+- Password encryption with Spring Security
+- Role-based access control (RBAC)
+- Protected REST endpoints
 
-### 💰 Digital Wallet Management
-- Create and manage wallet accounts.
-- Retrieve wallet balance.
-- Deposit and manage funds.
-- Transfer money between authorized users.
-- Validate transfer amounts and available balances.
+    </td>
+    <td width="50%" valign="top">
 
-### 📊 Transaction Management
-- Record financial transactions.
-- Track sender and receiver information.
-- Maintain transaction history.
-- Retrieve transaction summaries.
+### 💰 Digital Wallet
+- Create and manage wallet accounts
+- Retrieve wallet balance
+- Deposit funds
+- Transfer money between authorized users
+- Validate amounts and available balance
+
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+
+### 📊 Transactions
+- Record every financial transaction
+- Track sender and receiver details
+- Full transaction history
+- Transaction summaries
+
+    </td>
+    <td width="50%" valign="top">
 
 ### 👤 User Management
-- Organization-specific user registration.
-- User profile and account management.
-- Role assignment and authorization.
-- User account status management.
+- Organization-specific registration
+- Profile and account management
+- Role assignment and authorization
+- Account status management
+
+    </td>
+  </tr>
+</table>
 
 ---
 
-## 🛠️ Technology Stack
+## 🔄 How a Transfer Works
 
-| Technology | Purpose |
+```mermaid
+sequenceDiagram
+    autonumber
+    participant C as Client
+    participant S as Security Layer (JWT)
+    participant T as TransactionService
+    participant DB as MySQL
+
+    C->>S: POST transfer request + JWT
+    S->>S: Validate token and role
+    S->>T: Authenticated request
+    T->>T: Verify PIN / OTP
+    T->>DB: Check sender balance
+    DB-->>T: Balance
+    T->>T: Validate amount and balance
+    T->>DB: Debit sender, credit receiver, record transaction
+    DB-->>T: Committed
+    T-->>C: Transfer confirmation
+```
+
+---
+
+## 🏗️ Architecture
+
+The application uses a **layered architecture** to keep concerns separated and the codebase easy to extend and test.
+
+```mermaid
+flowchart LR
+    A[Client / Postman / Swagger] --> B[Controller Layer]
+    B --> C[Service Layer]
+    C --> D[Repository Layer]
+    D --> E[(MySQL)]
+    B -.-> F[Security Layer<br/>JWT · RBAC]
+    B -.-> G[Exception Handler]
+```
+
+| Layer | Responsibility |
 |---|---|
-| Java | Core programming language |
-| Spring Boot | Backend application framework |
-| Spring Security | Authentication and authorization |
-| Spring Data JPA | Database operations |
-| Hibernate | ORM |
-| MySQL | Relational database |
-| JWT | Stateless authentication |
-| Maven | Dependency and build management |
-| Lombok | Boilerplate code reduction |
-| ModelMapper | Object mapping |
-| Jakarta Validation | Request validation |
-| JUnit 5 | Unit testing |
-| Mockito | Mock-based testing |
+| **Controller** | Handles HTTP requests and API responses |
+| **Service** | Business logic and application workflows |
+| **Repository** | Database access via Spring Data JPA |
+| **Entity** | Database entities and relationships |
+| **DTO** | Structured data between clients and the application |
+| **Security** | Authentication and authorization |
+| **Exception** | Centralized error handling |
 
----
-
-## 🏗️ Project Architecture
-
-The application follows a layered architecture to maintain separation of concerns, readability, and maintainability.
+<details>
+<summary><b>📁 Project structure</b></summary>
 
 ```text
 src/main/java/com/fintech/leanbackend
@@ -97,8 +161,7 @@ src/main/java/com/fintech/leanbackend
 │   ├── OtpController.java
 │   └── TransactionController.java
 │
-├── dto/
-│   └── Request and Response DTOs
+├── dto/                    # Request and response DTOs
 │
 ├── entites/
 │   ├── Account.java
@@ -125,89 +188,111 @@ src/main/java/com/fintech/leanbackend
 │   ├── OtpService.java
 │   └── TransactionService.java
 │
-├── service/implementation/
-│   └── Service Implementations
+├── service/implementation/ # Service implementations
 │
 ├── utils/
 │   ├── JwtUtils.java
 │   └── KeyGenerator.java
 │
-└── validation/
-    └── Custom Request Validators
+└── validation/             # Custom request validators
 ```
 
-### Architecture Responsibilities
-
-- **Controller Layer:** Handles incoming HTTP requests and API responses.
-- **Service Layer:** Implements business logic and application workflows.
-- **Repository Layer:** Handles database communication through Spring Data JPA.
-- **Entity Layer:** Represents database entities and relationships.
-- **DTO Layer:** Transfers structured data between API clients and the application.
-- **Security Layer:** Manages authentication and authorization.
-- **Exception Layer:** Provides centralized exception handling.
+</details>
 
 ---
 
-## 🔒 Security Implementation
+## 🛠️ Technology Stack
 
-Security is an important part of the application because it handles financial operations and user account information.
+| Category | Technologies |
+|---|---|
+| **Language** | Java 17+ |
+| **Framework** | Spring Boot, Spring Security, Spring Data JPA |
+| **Persistence** | Hibernate, MySQL |
+| **Auth** | JWT, OTP |
+| **Mapping & Validation** | ModelMapper, Jakarta Validation, Lombok |
+| **API Docs & Tools** | Swagger / OpenAPI, Postman |
+| **Build** | Maven |
+| **Testing** | JUnit 5, Mockito |
 
-The project implements:
+---
 
-- JWT-based authentication.
-- Password hashing and secure password handling.
-- OTP verification workflow.
-- Role-based authorization.
-- Input validation.
-- Authenticated fund transfer operations.
-- Server-side balance validation.
+## 🔒 Security
 
-> Sensitive credentials, JWT secrets, and database passwords should be supplied through environment variables or external configuration rather than committed to the repository.
+Because the system handles financial operations and account data, security is built into every layer:
+
+- ✅ JWT-based authentication
+- ✅ Password hashing and secure credential handling
+- ✅ OTP verification workflow
+- ✅ Role-based authorization
+- ✅ Request input validation
+- ✅ Authenticated fund transfers
+- ✅ Server-side balance validation
+
+> [!IMPORTANT]
+> Never commit credentials. Supply JWT secrets and database passwords through **environment variables** or external configuration.
+
+---
+
+## 🔌 API Reference
+
+Interactive documentation is available through **Swagger UI** once the app is running:
+
+```text
+http://localhost:8080/swagger-ui/index.html
+```
+
+| Module | Base path | Description |
+|---|---|---|
+| 🔑 Authentication | `/api/auth` | Sign up, sign in, PIN setup and verification |
+| 📲 OTP | `/api/v1/otp` | Send and verify one-time passwords |
+| 🏦 Accounts | `/api/accounts` | Create account, balance, verification, account and login details |
+| 💸 Transactions | `/api/transactions` | Send money, deposit, transaction history |
+
+> 📮 A Postman collection can be imported to test every endpoint quickly.
 
 ---
 
 ## 🧪 Testing
 
-The project includes unit testing using JUnit 5 and Mockito.
+Unit tests are written with **JUnit 5** and **Mockito**, covering:
 
-Testing focuses on:
+- Authentication service behavior
+- User registration validation
+- Role assignment
+- Transaction processing and money transfer validation
+- Insufficient balance scenarios
+- Exception handling
 
-- Authentication service behavior.
-- User registration validation.
-- Role assignment.
-- Transaction processing.
-- Money transfer validation.
-- Insufficient balance scenarios.
-- Exception handling.
+Run the tests:
+
+```bash
+./mvnw test
+```
 
 ---
 
-## ⚙️ Installation & Setup
+## 🚀 Getting Started
 
 ### Prerequisites
 
-- Java 17 or later (use the version configured in `pom.xml`).
-- MySQL.
-- Git.
-- IntelliJ IDEA or another Java IDE.
+- Java 17 or later (match the version in `pom.xml`)
+- MySQL
+- Git
+- IntelliJ IDEA or another Java IDE
 
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/YOUR_USERNAME/LeanBackend.git
-```
-
-### 2. Navigate to the Project
+### Installation
 
 ```bash
-cd LeanBackend
+# 1. Clone the repository
+git clone https://github.com/AliHasnatB/lean-fintech-system.git
+
+# 2. Move into the project
+cd lean-fintech-system
 ```
 
-### 3. Configure Database
+### Configure the database
 
-Create a MySQL database and configure your application properties using your local configuration.
-
-Example:
+Create a MySQL database and set your local configuration:
 
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/leanbackend
@@ -215,67 +300,55 @@ spring.datasource.username=${DB_USERNAME}
 spring.datasource.password=${DB_PASSWORD}
 ```
 
-Configure the remaining required application properties and secrets using your environment.
+Set the remaining properties and secrets (such as the JWT secret) through environment variables.
 
-### 4. Build the Application
-
-Linux / macOS:
+### Build and run
 
 ```bash
+# Linux / macOS
 ./mvnw clean install
-```
-
-Windows:
-
-```bash
-mvnw.cmd clean install
-```
-
-### 5. Run the Application
-
-```bash
 ./mvnw spring-boot:run
+
+# Windows
+mvnw.cmd clean install
+mvnw.cmd spring-boot:run
 ```
 
-The backend will start on the configured application port.
+The backend starts on the configured application port.
 
 ---
 
-## 🔌 API Modules
+## 🗺️ Roadmap
 
-| Module | Description |
-|---|---|
-| Authentication | Registration and login |
-| OTP | Account verification |
-| Account | Wallet account management |
-| Transactions | Deposits, transfers and transaction history |
-| User Management | User information and account status |
-
----
-
-## 🚀 Future Improvements
-
-- Integration with external payment gateways.
-- Email and SMS notification services.
-- Advanced transaction analytics.
-- Audit logging and monitoring.
-- API documentation using Swagger / OpenAPI.
-- Docker containerization.
-- Integration testing.
-- Rate limiting and enhanced fraud detection.
+- [x] JWT authentication and RBAC
+- [x] OTP verification
+- [x] Wallet accounts, deposits and transfers
+- [x] Transaction history
+- [x] Unit tests (JUnit 5 + Mockito)
+- [x] Swagger / OpenAPI documentation
+- [ ] Integration tests
+- [ ] External payment gateway integration
+- [ ] Email and SMS notification services
+- [ ] Advanced transaction analytics
+- [ ] Audit logging and monitoring
+- [ ] Rate limiting and fraud detection
+- [ ] Docker containerization
 
 ---
 
 ## 👨‍💻 Developer
 
-**Ali Hasnat**
-
-Java Backend Developer | Spring Boot | WebFlux
+**Ali Hasnat** · Java Backend Developer
 
 Interested in building secure, scalable backend systems and practical software engineering solutions.
 
----
+<div align="center">
 
-<p align="center">
+  <a href="https://pk.linkedin.com/in/ali-bukhari-a8b5aa2a1"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
+  <a href="https://github.com/AliHasnatB"><img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" /></a>
+
+  <br/><br/>
+
   <b>Built with Java & Spring Boot ❤️</b>
-</p>
+
+</div>
