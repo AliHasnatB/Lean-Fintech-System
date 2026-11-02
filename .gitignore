@@ -1,0 +1,98 @@
+
+# ==========================================
+# Java
+# ==========================================
+*.class
+*.log
+hs_err_pid*
+replay_pid*
+
+# ==========================================
+# Spring Boot / Maven
+# ==========================================
+target/
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# Maven Wrapper
+# Keep mvnw, mvnw.cmd and wrapper properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Maven generated files
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+release.properties
+
+# ==========================================
+# IntelliJ IDEA / JetBrains
+# ==========================================
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# ==========================================
+# Spring Tool Suite / Eclipse
+# ==========================================
+.apt_generated/
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache/
+
+# ==========================================
+# VS Code
+# ==========================================
+.vscode/
+
+# ==========================================
+# NetBeans
+# ==========================================
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# ==========================================
+# Application Configuration / Secrets
+# ==========================================
+.env
+.env.*
+!.env.example
+
+# Application properties containing secrets
+application-local.properties
+application-dev.properties
+application-prod.properties
+application-local.yml
+application-dev.yml
+application-prod.yml
+
+# ==========================================
+# OS Generated Files
+# ==========================================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ==========================================
+# Temporary Files
+# ==========================================
+*.tmp
+*.bak
+*.swp
+*.swo
+*~
+
+# ==========================================
+# Help Files
+# ==========================================
+HELP.md
